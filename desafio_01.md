@@ -2,11 +2,11 @@
 **Foco:** arquitetura em AWS com integração on‑premises e exposição de API
 
 ## Contexto
-Você recebeu um ambiente AWS que atende uma aplicação web de produção. O desenho atual apresenta uma topologia funcional com camadas de aplicação, dados e integração com um ambiente on‑premises, além de mecanismos de administração e cópias de dados para um serviço externo.
+Recebi um ambiente AWS que atende uma aplicação web de produção. O desenho atual apresenta uma topologia funcional com camadas de aplicação, dados e integração com um ambiente on‑premises, além de mecanismos de administração e cópias de dados para um serviço externo.
 
 **Objetivo:** produzir uma avaliação técnica da arquitetura atual e propor um redesenho que atenda princípios de segurança, confiabilidade e operação em nuvem.
 
-## Resumo executivo (1 minuto)
+## Resumo executivo
 O cenário atual expõe componentes críticos (SSH e RDS públicos, API com Basic Auth via Internet e cópias por FTP), elevando o risco de comprometimento e vazamento de dados.  
 A proposta To‑Be reduz drasticamente a superfície de ataque ao manter **compute e banco em subnets privadas**, expondo apenas o **ALB público protegido por WAF** e tornando a integração on‑prem **privada via VPN/DX** com **ALB interno**.  
 A autenticação da API é modernizada para **OIDC/OAuth2 (JWT)** e/ou **mTLS**, com **segredos no Secrets Manager**, **TLS fim‑a‑fim** e **RDS MySQL privado com SG restrito**.  
