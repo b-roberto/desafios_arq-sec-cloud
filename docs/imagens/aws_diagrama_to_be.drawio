@@ -1,0 +1,262 @@
+<mxfile host="app.diagrams.net" agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/144.0.0.0 Safari/537.36" version="29.4.0">
+  <diagram name="Arquitetura Proposta (To-Be Segura)" id="1">
+    <mxGraphModel dx="3703" dy="929" grid="0" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1920" pageHeight="1080" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-28" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="657" width="1043" x="-750" y="113" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-32" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="20" width="120" x="-715" y="119" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-33" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="AWS" vertex="1">
+          <mxGeometry height="20" width="120" x="-719" y="119" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-38" parent="1" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="UOL Entra ID (Azure AD)" vertex="1">
+          <mxGeometry height="70" width="180" x="400" y="170" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-40" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="SSM/SSO&lt;br&gt;Console AWS" vertex="1">
+          <mxGeometry height="30" width="60" x="-810" y="383" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-41" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="MFA&lt;br&gt;Roles" vertex="1">
+          <mxGeometry height="30" width="60" x="-810" y="434.5" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-47" parent="1" style="swimlane;rounded=1;whiteSpace=wrap;html=1;horizontal=0;container=1;fillColor=#E8F5E9;align=left;" value="VPC – Subnets Públicas e Privadas (Segregadas)" vertex="1">
+          <mxGeometry height="599" width="980" x="-722" y="144" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-subnet-db" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;" value="" vertex="1">
+          <mxGeometry height="123" width="866" x="54" y="457" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-1" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;" value="" vertex="1">
+          <mxGeometry height="280" width="860" x="57" y="153" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-subnet-public" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;" value="" vertex="1">
+          <mxGeometry height="110" width="860" x="66" y="18" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-50" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;" value="EC2 Web-2 HTTPS/443 &lt;br&gt;🔒 Sem IP público" vertex="1">
+          <mxGeometry height="100" width="260" x="450" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-48" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;" value="ALB&amp;nbsp; Público HTTPS/443" vertex="1">
+          <mxGeometry height="61" width="221" x="376.5" y="18" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-49" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;" value="EC2 Web-1 HTTPS/443 &lt;br&gt;🔒 Sem IP público" vertex="1">
+          <mxGeometry height="100" width="260" x="160" y="200" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-52" edge="1" parent="iTAtHZUyAxvmCrgGAdnF-47" source="iTAtHZUyAxvmCrgGAdnF-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" target="iTAtHZUyAxvmCrgGAdnF-49" value="HTTPS/443">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-53" edge="1" parent="iTAtHZUyAxvmCrgGAdnF-47" source="iTAtHZUyAxvmCrgGAdnF-48" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" target="iTAtHZUyAxvmCrgGAdnF-50" value="HTTPS/443">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-51" parent="iTAtHZUyAxvmCrgGAdnF-47" style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF9C4;" value="Security Group – Web/ALB/RDS&lt;br&gt;ALB: 0.0.0.0/0 → 443&lt;br&gt;Web: ALB-SG → 443&lt;br&gt;Web: ALB-Interno-SG → 443&lt;br&gt;RDS: Web-SG → 3306&lt;div&gt;&lt;br/&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="135" width="280" x="640" y="5.5" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-67" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FCE4EC;" value="RDS 🔒 (Privado)&lt;br&gt;TCP/3306&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Sem acesso público&lt;/font&gt;&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;TLS MySQL obrigatório&lt;/font&gt;" vertex="1">
+          <mxGeometry height="100" width="370" x="283" y="473" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-78" edge="1" parent="iTAtHZUyAxvmCrgGAdnF-47" source="iTAtHZUyAxvmCrgGAdnF-49" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" target="iTAtHZUyAxvmCrgGAdnF-67" value="DB 3306">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-132" y="483" as="sourcePoint" />
+            <mxPoint x="-197" y="573" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-79" edge="1" parent="iTAtHZUyAxvmCrgGAdnF-47" source="iTAtHZUyAxvmCrgGAdnF-50" style="endArrow=classic;html=1;rounded=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;exitX=0.75;exitY=1;exitDx=0;exitDy=0;" target="iTAtHZUyAxvmCrgGAdnF-67" value="DB 3306">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-428" y="483" as="sourcePoint" />
+            <mxPoint x="-338" y="573" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="toBe-3b485aea6d" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;strokeColor=#82b366;" value="SSM Session Manager&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Acesso admin sem SSH público&lt;/font&gt;" vertex="1">
+          <mxGeometry height="46" width="195" x="368" y="304" as="geometry" />
+        </mxCell>
+        <mxCell id="tls-note-1" parent="iTAtHZUyAxvmCrgGAdnF-47" style="shape=note;whiteSpace=wrap;html=1;fillColor=#FFF9C4;size=2;" value="TLS fim-a-fim: ALB → EC2 em 443 (target group HTTPS).&lt;br&gt;Gerenciar certificados no backend (ACM PCA/automação)." vertex="1">
+          <mxGeometry height="60" width="264" x="61" y="68" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-lbl-public" parent="iTAtHZUyAxvmCrgGAdnF-47" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=none;fillColor=none;fontStyle=1;" value="Subnets Públicas (ALB/WAF)" vertex="1">
+          <mxGeometry height="20" width="250" x="70" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-lbl-app" parent="iTAtHZUyAxvmCrgGAdnF-47" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=none;fillColor=none;fontStyle=1;" value="Subnets Privadas – &lt;br&gt;App Tier (EC2/ASG/SSM)" vertex="1">
+          <mxGeometry height="25" width="330" x="70" y="155" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-lbl-db" parent="iTAtHZUyAxvmCrgGAdnF-47" style="text;html=1;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;strokeColor=none;fillColor=none;fontStyle=1;" value="Subnet Privada – DB Tier (RDS)" vertex="1">
+          <mxGeometry height="18" width="260" x="70" y="501" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-intalb-db5673e99aa1" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;" value="ALB Interno HTTPS/443" vertex="1">
+          <mxGeometry height="80" width="260" x="612" y="343" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-edge-348dc4cd11f9" edge="1" parent="iTAtHZUyAxvmCrgGAdnF-47" source="toBe-intalb-db5673e99aa1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" target="iTAtHZUyAxvmCrgGAdnF-49" value="HTTPS/443">
+          <mxGeometry relative="1" x="-0.2535" as="geometry">
+            <mxPoint as="offset" />
+            <Array as="points">
+              <mxPoint x="290" y="404" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="toBe-edge-48ec242093b6" edge="1" parent="iTAtHZUyAxvmCrgGAdnF-47" source="toBe-intalb-db5673e99aa1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" target="iTAtHZUyAxvmCrgGAdnF-50" value="HTTPS/443">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="739" y="276" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="toBe-a5f2927e8f5d" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;" value="CloudTrail" vertex="1">
+          <mxGeometry height="50" width="70" x="70" y="415" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-552363b8c31e" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;" value="CloudWatch Logs/Metrics" vertex="1">
+          <mxGeometry height="54" width="133" x="150" y="413" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-d25f66e992b7" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E3F2FD;" value="Alarms" vertex="1">
+          <mxGeometry height="55" width="59" x="288" y="413" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-waf-0e225218" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF3E0;" value="WAF" vertex="1">
+          <mxGeometry height="45" width="69" x="255.5" y="18" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-edge-waf-alb-8b0096" edge="1" parent="iTAtHZUyAxvmCrgGAdnF-47" source="toBe-waf-0e225218" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;endArrow=block;" value="HTTPS/443">
+          <mxGeometry relative="1" x="0.5439" y="-16" as="geometry">
+            <mxPoint x="-10" y="-4" as="offset" />
+            <Array as="points">
+              <mxPoint x="364" y="40" />
+              <mxPoint x="364" y="45" />
+            </Array>
+            <mxPoint x="377" y="45" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="toBe-secrets-edf26c0d" parent="iTAtHZUyAxvmCrgGAdnF-47" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8F5E9;" value="Secrets Manager&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Credenciais MySQL + rotação&lt;/font&gt;" vertex="1">
+          <mxGeometry height="62" width="145" x="770" y="165" as="geometry" />
+        </mxCell>
+        <mxCell id="yCQK1annU9coU_NBXDEG-21" edge="1" parent="iTAtHZUyAxvmCrgGAdnF-47" source="iTAtHZUyAxvmCrgGAdnF-50" style="endArrow=classic;startArrow=classic;html=1;rounded=0;exitX=1.015;exitY=0.357;exitDx=0;exitDy=0;exitPerimeter=0;" target="toBe-secrets-edf26c0d" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="569" y="406" as="sourcePoint" />
+            <mxPoint x="619" y="356" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-23" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Usuários" vertex="1">
+          <mxGeometry height="60" width="30" x="-980" y="219" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-34" edge="1" parent="1" source="iTAtHZUyAxvmCrgGAdnF-23" style="endArrow=classic;html=1;rounded=0;" target="toBe-waf-0e225218" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="150" y="462" as="sourcePoint" />
+            <mxPoint x="-752.3000000000002" y="247.5999999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-35" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="80" width="120" x="-934" y="207" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-24" parent="iTAtHZUyAxvmCrgGAdnF-35" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="80" width="120" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-25" parent="iTAtHZUyAxvmCrgGAdnF-35" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="Internet" vertex="1">
+          <mxGeometry height="30" width="60" x="30" y="25" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-36" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="HTTPS" vertex="1">
+          <mxGeometry height="30" width="60" x="-820" y="219" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-37" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="OIDC/MFA" vertex="1">
+          <mxGeometry height="30" width="60" x="-820" y="252" as="geometry" />
+        </mxCell>
+        <mxCell id="yCQK1annU9coU_NBXDEG-20" edge="1" parent="1" source="iTAtHZUyAxvmCrgGAdnF-54" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.973;entryY=1.005;entryDx=0;entryDy=0;entryPerimeter=0;" target="doBmu_qI__iYJ40otEdp-1">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="-267" y="732" />
+              <mxPoint x="171" y="732" />
+              <mxPoint x="171" y="592" />
+              <mxPoint x="172" y="578" />
+            </Array>
+            <mxPoint x="-125.5" y="850" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-54" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F3E5F5;" value="Serviço de Backup Externo&lt;br&gt;✅ SFTP/HTTPS (seguro)&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Dados pessoais&lt;/font&gt;" vertex="1">
+          <mxGeometry height="80" width="254" x="-410" y="810" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-39" edge="1" parent="1" style="endArrow=classic;html=1;rounded=0;entryX=0.003;entryY=0.427;entryDx=0;entryDy=0;entryPerimeter=0;" target="iTAtHZUyAxvmCrgGAdnF-47" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <mxPoint x="-950" y="431.5" as="sourcePoint" />
+            <mxPoint x="-752" y="430.5" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-29" parent="1" style="shape=umlActor;verticalLabelPosition=bottom;verticalAlign=top;html=1;outlineConnect=0;" value="Devops/&lt;br&gt;SysAdmin" vertex="1">
+          <mxGeometry height="60" width="30" x="-990" y="388" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-30" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="80" width="120" x="-920" y="391" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-31" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="Internet" vertex="1">
+          <mxGeometry height="30" width="60" x="-890" y="416" as="geometry" />
+        </mxCell>
+        <mxCell id="iTAtHZUyAxvmCrgGAdnF-73" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="SFTP / 22&lt;br&gt;ou HTTPS" vertex="1">
+          <mxGeometry height="30" width="60" x="-347" y="770" as="geometry" />
+        </mxCell>
+        <mxCell id="MUNOFzVPSlVcPt5SJZzJ-3" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="140" width="280" x="400" y="634" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-5" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="" vertex="1">
+          <mxGeometry height="20" width="120" x="423" y="624" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-6" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="&lt;div style=&quot;text-align: start; font-family: &amp;quot;Segoe UI&amp;quot;; font-size: 14px; line-height: 20px;&quot;&gt;OnPremises&lt;/div&gt;" vertex="1">
+          <mxGeometry height="20" width="120" x="423" y="624" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-9" edge="1" parent="1" source="iTAtHZUyAxvmCrgGAdnF-28" style="endArrow=classic;startArrow=classic;html=1;rounded=0;entryX=0.583;entryY=0.004;entryDx=0;entryDy=0;entryPerimeter=0;exitX=1.004;exitY=0.342;exitDx=0;exitDy=0;exitPerimeter=0;" target="MUNOFzVPSlVcPt5SJZzJ-3" value="">
+          <mxGeometry height="50" relative="1" width="50" as="geometry">
+            <Array as="points">
+              <mxPoint x="563" y="375" />
+            </Array>
+            <mxPoint x="190" y="470" as="sourcePoint" />
+            <mxPoint x="240" y="420" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-7" parent="1" style="ellipse;shape=cloud;whiteSpace=wrap;html=1;fillColor=#f5f5f5;fontColor=#333333;strokeColor=#666666;" value="" vertex="1">
+          <mxGeometry height="125.5" width="240" x="410" y="309" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-12" parent="1" style="aspect=fixed;sketch=0;html=1;dashed=0;whitespace=wrap;verticalLabelPosition=bottom;verticalAlign=top;fillColor=#2875E2;strokeColor=#ffffff;points=[[0.005,0.63,0],[0.1,0.2,0],[0.9,0.2,0],[0.5,0,0],[0.995,0.63,0],[0.72,0.99,0],[0.5,1,0],[0.28,0.99,0]];shape=mxgraph.kubernetes.icon2;kubernetesLabel=1;prIcon=api" value="" vertex="1">
+          <mxGeometry height="81" width="84.38" x="440" y="674" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-13" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="VPN / Direct Connect" vertex="1">
+          <mxGeometry height="30" width="60" x="510" y="361" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-14" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="HTTPS" vertex="1">
+          <mxGeometry height="30" width="60" x="560" y="500" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-15" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="OIDC/OAuth2 (tokens curtos)&lt;br&gt;ou mTLS" vertex="1">
+          <mxGeometry height="30" width="110" x="535" y="680" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-18" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;rounded=0;" value="Consulta dados de usuários para relatórios (nome, e-mail, crescimento de clientes / acessos)" vertex="1">
+          <mxGeometry height="60" width="210" x="535" y="730" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-20" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=#d79b00;fillColor=#ffe6cc;align=center;verticalAlign=middle;rounded=0;" value="&lt;font style=&quot;font-size: 10px;&quot;&gt;Agente de Backup&lt;/font&gt;" vertex="1">
+          <mxGeometry height="39" width="60" x="-9" y="673" as="geometry" />
+        </mxCell>
+        <mxCell id="doBmu_qI__iYJ40otEdp-21" parent="1" style="text;html=1;whiteSpace=wrap;strokeColor=none;fillColor=none;align=center;verticalAlign=middle;rounded=0;" value="HTTPS" vertex="1">
+          <mxGeometry height="30" width="60" x="342" y="340" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-ba00f91e80" parent="1" style="rounded=1;dashed=1;whiteSpace=wrap;html=1;fillColor=#dae8fc;strokeColor=#6c8ebf;" value="AWS IAM Identity Center (SSO)&lt;br&gt;&lt;font style=&quot;font-size: 10px;&quot;&gt;Federado ao Entra ID + MFA&lt;/font&gt;" vertex="1">
+          <mxGeometry height="70" width="220" x="390" y="255" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-11c749ecea" edge="1" parent="1" source="toBe-ba00f91e80" style="endArrow=classic;html=1;rounded=0;" target="toBe-3b485aea6d">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="136" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="toBe-d469521818" edge="1" parent="1" source="iTAtHZUyAxvmCrgGAdnF-38" style="endArrow=classic;html=1;rounded=0;dashed=1;" target="toBe-ba00f91e80">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-obs-9fc48df91492" parent="1" style="rounded=0;whiteSpace=wrap;html=1;fillColor=none;dashed=1;" value="">
+          <mxGeometry height="140" width="360" x="-720" y="610" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-obsbg-42cdc89dbbef" parent="1" style="rounded=0;whiteSpace=wrap;html=1;" value="">
+          <mxGeometry height="20" width="180" x="-715" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-obslbl-532785db70fd" parent="1" style="text;html=1;align=center;verticalAlign=middle;whiteSpace=wrap;rounded=0;" value="Observabilidade">
+          <mxGeometry height="20" width="180" x="-715" y="600" as="geometry" />
+        </mxCell>
+        <mxCell id="toBe-edge-vpn-intalb-e41801" edge="1" parent="1" source="doBmu_qI__iYJ40otEdp-7" style="endArrow=classic;html=1;rounded=0;exitX=0.13;exitY=0.77;exitDx=0;exitDy=0;exitPerimeter=0;" target="toBe-intalb-db5673e99aa1" value="mTLS/OIDC">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="461" y="396" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
