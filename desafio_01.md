@@ -18,7 +18,7 @@ A cópia de dados para o terceiro migra de **FTP/21** para **SFTP/HTTPS (TLS)** 
 
 ## Referência Visual (As‑Is)
 Utilize como base o diagrama a seguir (formato draw.io):
-
+![Arquitetura](docs/imagens/aws_diagrama.png)
 - `docs/imagens/aws_diagrama.drawio` (somente referência)
 - Abrir em: https://app.diagrams.net
 
