@@ -20,7 +20,7 @@ O foco é demonstrar análise de riscos, redesenho de arquitetura (Security Desi
 ### Entregáveis do Desafio 01
 - Documento: [`desafio_01.md`](./desafio_01.md)
 - Diagrama As‑Is (referência): `docs/imagens/aws_diagrama.drawio`
-- Diagrama To‑Be (proposto): `docs/imagens/to-be.drawio`
+- Diagrama To‑Be (proposto): `docs/imagens/aws_diagrama_to_be.drawio`
 
 ### Como abrir os diagramas
 1. Acesse https://app.diagrams.net
