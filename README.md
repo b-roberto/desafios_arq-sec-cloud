@@ -30,7 +30,7 @@ O foco é demonstrar análise de riscos, redesenho de arquitetura (Security Desi
 ---
 
 ## ⚙️ Desafio 2 – Infraestrutura como Código (IaC) com AWS Free Tier
-**Status:** pendente (será iniciado após a finalização do Desafio 01).
+Entrega do **Desafio 02**, conforme requisitos: VPC, subnets, SG least privilege, Bastion, Web privado (ASG/ALB), RDS privado, backup em S3 com VPCE + policy `aws:sourceVpce`, KMS (rotação), Secrets Manager e observabilidade mínima.
 
 - Documento: [`desafio_02.md`](./desafio_02.md)
 - Infra: `infra/`
