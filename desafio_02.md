@@ -123,6 +123,9 @@ terraform destroy
 ## Como acessar (Bastion → Web)
 
 > A ideia é: você entra no Bastion (IP público) e dele acessa a instância Web (IP privado).
+> **Observação:** neste ambiente de demonstração, o **Bastion pode não ter AWS CLI instalado**.  
+> Portanto, a descoberta de recursos (instance ID/IP da Web, Target Group, etc.) deve ser feita **na máquina local** com AWS CLI, e o Bastion é usado para salto/rede (Bastion → Web).
+
 
 ### 1) Descobrir IP público do Bastion
 Se houver `terraform output`, use. Se não, AWS CLI (tags do projeto):
@@ -144,20 +147,25 @@ aws ec2 describe-instances \
 ### 3) Gerar a chave .pem e SSH no Bastion
 ```bash
 terraform output -raw ssh_private_key_pem_bastion > bastion.pem
-# se vier com "\n" literal, faz:
-sed -i.bak 's/\\n/\n/g' bastion.pem 2>/dev/null || sed 's/\\n/\n/g' bastion.pem > bastion.pem.tmp && mv bastion.pem.tmp bastion.pem
-
 chmod 600 bastion.pem
 ssh-keygen -yf bastion.pem | head -n 1
 ssh -i bastion.pem ubuntu@<IP-DO-BASTION> -vv
 ```
 
-### 4) SSH do Bastion para a Web
+### 4) SSH do Bastion para a Web (Existem 2 formas):
 ```bash
-ssh ubuntu@<WEB_PRIVATE_IP>
+#### Opção A — **SSM (recomendado)**
+Acesse a instância Web com Session Manager a partir da máquina local:
+```bash
+aws ssm start-session --target <WEB_INSTANCE_ID>
 ```
+#### Opção B 
+SSH via Bastion com Agent Forwarding, conecte no bastion com -A e depois acesse a instancia da Web:
+ssh -A -i bastion.pem ubuntu@<IP-DO-BASTION>
+ssh ubuntu@<WEB_PRIVATE_IP>
+```bash
 
-**Dica rápida (mais limpa):** use `ssh -A` (agent forwarding) para não copiar chave pro Bastion.
+**`ssh -A` (agent forwarding) para não copia chave pro Bastion.
 
 ---
 
