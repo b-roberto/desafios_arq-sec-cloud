@@ -158,18 +158,16 @@ ssh -i bastion.pem ubuntu@<IP-DO-BASTION> -vv
 Acesse a instância Web com Session Manager a partir da máquina local:
 ```bash
 aws ssm start-session --target <WEB_INSTANCE_ID>
-```
+
 #### Opção B 
 SSH via Bastion com Agent Forwarding, conecte no bastion com -A e depois acesse a instancia da Web:
 ssh -A -i bastion.pem ubuntu@<IP-DO-BASTION>
-ssh ubuntu@<WEB_PRIVATE_IP>
-```bash
-
 **`ssh -A` (agent forwarding) para não copia chave pro Bastion.
-
----
+ssh ubuntu@<WEB_PRIVATE_IP>
+```
 
 ## Como executar o backup
+```bash
 
 O “backup” aqui é demonstrativo para cumprir requisito: gerar artefato e enviar ao **S3 bucket de backup** com criptografia.
 
