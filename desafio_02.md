@@ -65,9 +65,9 @@ aws configure get region
 
 ---
 
-## Instruções de reprodutibilidade (passo a passo claro)
+## Instruções de reprodutibilidade 
 
-Objetivo: alguém pega o repo, roda e funciona. Sem adivinhar nada.
+Objetivo: Clonar o repo, executar, validar o ambiente e destruir.
 
 ### Passo 1 — Clonar e entrar na pasta de infra
 ```bash
