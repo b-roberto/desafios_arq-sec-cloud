@@ -18,7 +18,7 @@ resource "aws_vpc" "this" {
   cidr_block           = "10.20.0.0/16"
   enable_dns_hostnames = true
   enable_dns_support   = true
-  tags = { Name = "${local.name}-vpc" }
+  tags                 = { Name = "${local.name}-vpc" }
 }
 
 resource "aws_internet_gateway" "igw" {
@@ -32,7 +32,7 @@ resource "aws_subnet" "public" {
   availability_zone       = each.value
   cidr_block              = cidrsubnet(aws_vpc.this.cidr_block, 4, index(var.azs, each.value))
   map_public_ip_on_launch = true
-  tags = { Name = "${local.name}-public-${each.value}" }
+  tags                    = { Name = "${local.name}-public-${each.value}" }
 }
 
 resource "aws_subnet" "private_app" {
@@ -40,7 +40,7 @@ resource "aws_subnet" "private_app" {
   vpc_id            = aws_vpc.this.id
   availability_zone = each.value
   cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 4, 8 + index(var.azs, each.value))
-  tags = { Name = "${local.name}-private-app-${each.value}" }
+  tags              = { Name = "${local.name}-private-app-${each.value}" }
 }
 
 resource "aws_subnet" "private_db" {
@@ -48,7 +48,7 @@ resource "aws_subnet" "private_db" {
   vpc_id            = aws_vpc.this.id
   availability_zone = each.value
   cidr_block        = cidrsubnet(aws_vpc.this.cidr_block, 4, 12 + index(var.azs, each.value))
-  tags = { Name = "${local.name}-private-db-${each.value}" }
+  tags              = { Name = "${local.name}-private-db-${each.value}" }
 }
 
 resource "aws_route_table" "public" {
@@ -136,23 +136,25 @@ resource "aws_vpc_endpoint" "s3" {
 
 data "aws_iam_policy_document" "s3_bucket_policy" {
   statement {
-    sid     = "DenyRequestsNotFromVPCE"
-    effect  = "Deny"
-    actions = ["s3:*"]
-    resources = [
-      aws_s3_bucket.backup.arn,
-      "${aws_s3_bucket.backup.arn}/*"
-    ]
+    sid    = "DenyInsecureTransport"
+    effect = "Deny"
 
     principals {
       type        = "*"
       identifiers = ["*"]
     }
 
+    actions = ["s3:*"]
+
+    resources = [
+      aws_s3_bucket.backup.arn,
+      "${aws_s3_bucket.backup.arn}/*",
+    ]
+
     condition {
-      test     = "StringNotEquals"
-      variable = "aws:sourceVpce"
-      values   = [aws_vpc_endpoint.s3.id]
+      test     = "Bool"
+      variable = "aws:SecureTransport"
+      values   = ["false"]
     }
   }
 }
@@ -206,7 +208,7 @@ resource "aws_security_group" "bastion" {
 
 resource "aws_security_group" "web" {
   name        = "${local.name}-sg-web"
-  description = "Web instances in private subnets"
+  description = "Web instances (behind ALB)"
   vpc_id      = aws_vpc.this.id
 
   ingress {
@@ -274,13 +276,18 @@ resource "random_password" "db" {
   special = true
 }
 
+resource "random_id" "secret_suffix" {
+  byte_length = 3
+}
+
 resource "aws_secretsmanager_secret" "db" {
-  name       = "${local.name}/rds/mysql"
+  name = "${local.name}/rds/mysql-${random_id.secret_suffix.hex}"
+  recovery_window_in_days = 0
   kms_key_id = aws_kms_key.cmk.arn
 }
 
 resource "aws_secretsmanager_secret_version" "db" {
-  secret_id     = aws_secretsmanager_secret.db.id
+  secret_id = aws_secretsmanager_secret.db.id
   secret_string = jsonencode({
     username = var.db_username
     password = random_password.db.result
@@ -304,20 +311,20 @@ data "aws_iam_policy_document" "web_policy" {
   }
 
   statement {
-    sid = "KMSForS3"
-    actions = ["kms:Encrypt", "kms:Decrypt", "kms:GenerateDataKey"]
+    sid       = "KMSForS3"
+    actions   = ["kms:Encrypt", "kms:Decrypt", "kms:GenerateDataKey"]
     resources = [aws_kms_key.cmk.arn]
   }
 
   statement {
-    sid = "ReadDbSecret"
-    actions = ["secretsmanager:GetSecretValue", "secretsmanager:DescribeSecret"]
+    sid       = "ReadDbSecret"
+    actions   = ["secretsmanager:GetSecretValue", "secretsmanager:DescribeSecret"]
     resources = [aws_secretsmanager_secret.db.arn]
   }
 
   statement {
-    sid = "CloudWatchLogsBasic"
-    actions = ["logs:CreateLogStream", "logs:PutLogEvents", "logs:DescribeLogStreams", "logs:CreateLogGroup"]
+    sid       = "CloudWatchLogsBasic"
+    actions   = ["logs:CreateLogStream", "logs:PutLogEvents", "logs:DescribeLogStreams", "logs:CreateLogGroup"]
     resources = ["*"]
   }
 }
@@ -345,7 +352,6 @@ resource "aws_iam_instance_profile" "web" {
 resource "aws_cloudwatch_log_group" "web" {
   name              = "/${local.name}/web"
   retention_in_days = 7
-  kms_key_id        = aws_kms_key.cmk.arn
 }
 
 resource "aws_launch_template" "web" {
@@ -357,8 +363,10 @@ resource "aws_launch_template" "web" {
     name = aws_iam_instance_profile.web.name
   }
 
-  vpc_security_group_ids = [aws_security_group.web.id]
-
+  network_interfaces {
+    associate_public_ip_address = true
+    security_groups             = [aws_security_group.web.id]
+  }
   user_data = base64encode(templatefile("${path.module}/userdata/web_user_data.sh.tpl", {
     s3_bucket    = aws_s3_bucket.backup.bucket
     aws_region   = var.aws_region
@@ -374,7 +382,7 @@ resource "aws_launch_template" "web" {
 
   tag_specifications {
     resource_type = "instance"
-    tags = { Name = "${local.name}-web" }
+    tags          = { Name = "${local.name}-web" }
   }
 }
 
@@ -417,7 +425,7 @@ resource "aws_autoscaling_group" "web" {
   desired_capacity    = var.desired_capacity
   max_size            = var.max_size
   min_size            = var.min_size
-  vpc_zone_identifier = [for s in aws_subnet.private_app : s.id]
+  vpc_zone_identifier = [for s in aws_subnet.public : s.id]
   health_check_type   = "ELB"
   target_group_arns   = [aws_lb_target_group.web.arn]
 
@@ -489,11 +497,11 @@ resource "aws_db_instance" "mysql" {
   deletion_protection     = false
   multi_az                = false
   db_subnet_group_name    = aws_db_subnet_group.db.name
-  parameter_group_name     = aws_db_parameter_group.mysql_tls.name
+  parameter_group_name    = aws_db_parameter_group.mysql_tls.name
   vpc_security_group_ids  = [aws_security_group.rds.id]
   storage_encrypted       = true
   kms_key_id              = aws_kms_key.cmk.arn
-  backup_retention_period = 3
+  backup_retention_period = 0
 }
 
 resource "aws_s3_bucket" "cloudtrail" {
