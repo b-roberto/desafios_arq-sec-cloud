@@ -218,6 +218,14 @@ aws s3 ls s3://$BUCKET/
   - **SSE-KMS**
   - Policy **DenyInsecureTransport** (nega HTTP)
 
+#### Restrição de acesso por VPC Endpoint (`aws:sourceVpce`)
+A restrição por **`aws:sourceVpce`** foi considerada no desenho, mas **não foi aplicada no ambiente de demonstração**, pois o `terraform apply` é executado localmente (fora da VPC).
+Nesse cenário, a exigência de `sourceVpce` poderia causar **auto-bloqueio** do próprio provisionamento.
+
+**Em produção**, o recomendado é habilitar `aws:sourceVpce` junto com:
+- execução de CI/CD dentro da AWS/VPC (runner privado), ou
+- **exceção controlada** para o principal de provisionamento (IAM Role/User), com escopo mínimo.  
+
 ### Observabilidade e alertas
 - Alarmes e logs no CloudWatch conforme implementado no Terraform (CPU/HealthyHosts/log groups etc.)
 
@@ -230,6 +238,7 @@ aws s3 ls s3://$BUCKET/
 - Ambiente pode estar em **Free Tier** → ajustes de RDS (classe, retention) devem respeitar limites.
 - Para bootstrap instalar pacotes (ex.: nginx, awscli), a instância Web precisa ter **egress** para internet.
 - Tags são usadas para facilitar validação e rastreio (`Project=desafio-02`).
+- - O `terraform apply` do ambiente de demonstração é executado localmente (fora da VPC), portanto políticas S3 com restrição exclusiva por `aws:sourceVpce` podem exigir exceção temporária/controlada para evitar bloqueio do provisionamento.
 
 ---
 
@@ -320,6 +329,13 @@ aws s3api get-public-access-block --bucket "$BUCKET" \
 
 aws s3api get-bucket-encryption --bucket "$BUCKET" \
   --query "ServerSideEncryptionConfiguration.Rules[0].ApplyServerSideEncryptionByDefault" --output table
+
+aws s3api get-bucket-policy --bucket "$BUCKET" --query Policy --output text
+
+aws ec2 describe-vpc-endpoints \
+  --filters "Name=vpc-id,Values=$VPC_ID" "Name=service-name,Values=com.amazonaws.us-east-1.s3" \
+  --query "VpcEndpoints[].{Id:VpcEndpointId,Type:VpcEndpointType,State:State,RTs:RouteTableIds}" \
+  --output table
 
 aws s3api get-bucket-policy --bucket "$BUCKET" --query Policy --output text
 ```
