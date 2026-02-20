@@ -218,6 +218,7 @@ aws s3 ls s3://$BUCKET/
 - **SSH na Web** é permitido **somente do Bastion**.
 - **SSH no Bastion** é permitido **somente do IP informado em `my_ip_cidr`**.
 - **RDS** é **privado** (`PubliclyAccessible=false`), em subnets privadas.
+- A regra de entrada HTTP da instância Web referencia **o Security Group do ALB** (source SG), evitando exposição por CIDR amplo (`0.0.0.0/0`) na camada Web.
 
 ### Dados e segredos
 - Credenciais de DB ficam no **AWS Secrets Manager**.
@@ -381,16 +382,6 @@ aws ssm get-command-invocation \
   --query "{Status:Status,Stdout:StandardOutputContent,Stderr:StandardErrorContent}" \
   --output json
 ```
-
----
-
-## (Se implementado) arquivos de pipeline
-
-Se você implementar pipelines, devem existir:
-- **GitHub Actions:** `.github/workflows/*.yml`
-- **ou Jenkins:** `Jenkinsfile`
-
-Abaixo estão exemplos prontos para colar.
 
 ---
 
