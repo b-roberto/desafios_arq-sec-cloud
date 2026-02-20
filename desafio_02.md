@@ -563,32 +563,6 @@ pipeline {
 
 ---
 
-## Reprodutibilidade e Documentação (texto do requisito)
+## Reprodutibilidade e Documentação
 
 Espera-se que o código entregue seja reprodutível por qualquer pessoa com conhecimento básico em AWS, sem depender de informações implícitas ou ajustes manuais não documentados.
-
-A documentação deve permitir que qualquer integrante da equipe consiga:
-- Entender a arquitetura proposta;
-- Criar o ambiente a partir do código;
-- Executar testes básicos;
-- Destruir o ambiente ao final.
-
-Esse requisito avalia a clareza, organização e maturidade técnica da solução.
-
----
-
-## Estrutura sugerida do repositório
-
-```
-.
-├── infra/
-│   ├── main.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   └── ...
-├── .github/workflows/        # se GitHub Actions
-│   ├── ci.yml
-│   └── cd-apply.yml
-├── Jenkinsfile               # se Jenkins
-└── desafio_02.md
-```
