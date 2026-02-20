@@ -55,6 +55,9 @@ Recursos típicos criados:
 ### Conta e permissões AWS
 Você precisa de credenciais válidas com permissão para criar recursos (VPC, EC2, ELB, ASG, RDS, S3, KMS, CloudWatch, IAM/SSM conforme usado).
 
+> **Nota sobre shell:** os comandos deste documento estão em **Bash** (Linux/macOS/WSL).  
+> Em **PowerShell**, adapte variáveis (`$var = ...`) e continuidade de linha (`` ` ``) conforme necessário.
+
 Valide:
 ```bash
 aws sts get-caller-identity
