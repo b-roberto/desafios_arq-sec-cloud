@@ -133,7 +133,15 @@ aws ec2 describe-instances \
   --output text
 ```
 
-### 2) Gerar a chave .pem e SSH no Bastion
+### 2) Descobrir IP privado da Web (ASG)
+```bash
+aws ec2 describe-instances \
+  --filters "Name=tag:Project,Values=desafio-02" "Name=tag:Role,Values=web" "Name=instance-state-name,Values=running" \
+  --query "Reservations[].Instances[].{Id:InstanceId,Priv:PrivateIpAddress}" \
+  --output table
+```
+
+### 3) Gerar a chave .pem e SSH no Bastion
 ```bash
 terraform output -raw ssh_private_key_pem_bastion > bastion.pem
 # se vier com "\n" literal, faz:
@@ -142,14 +150,6 @@ sed -i.bak 's/\\n/\n/g' bastion.pem 2>/dev/null || sed 's/\\n/\n/g' bastion.pem 
 chmod 600 bastion.pem
 ssh-keygen -yf bastion.pem | head -n 1
 ssh -i bastion.pem ubuntu@<IP-DO-BASTION> -vv
-```
-
-### 3) Descobrir IP privado da Web (ASG)
-```bash
-aws ec2 describe-instances \
-  --filters "Name=tag:Project,Values=desafio-02" "Name=tag:Role,Values=web" "Name=instance-state-name,Values=running" \
-  --query "Reservations[].Instances[].{Id:InstanceId,Priv:PrivateIpAddress}" \
-  --output table
 ```
 
 ### 4) SSH do Bastion para a Web
