@@ -8,8 +8,11 @@ Recebi um ambiente AWS que atende uma aplicação web de produção. O desenho a
 
 ## Resumo executivo
 O cenário atual expõe componentes críticos (SSH e RDS públicos, API com Basic Auth via Internet e cópias por FTP), elevando o risco de comprometimento e vazamento de dados.  
+
 A proposta To‑Be reduz drasticamente a superfície de ataque ao manter **compute e banco em subnets privadas**, expondo apenas o **ALB público protegido por WAF** e tornando a integração on‑prem **privada via VPN/DX** com **ALB interno**.  
+
 A autenticação da API é modernizada para **OIDC/OAuth2 (JWT)** e/ou **mTLS**, com **segredos no Secrets Manager**, **TLS fim‑a‑fim** e **RDS MySQL privado com SG restrito**.  
+
 A cópia de dados para o terceiro migra de **FTP/21** para **SFTP/HTTPS (TLS)** com auditoria. A solução inclui **observabilidade mínima** (CloudTrail/CloudWatch/Alarmes) e **governança de identidade** (IAM Identity Center federado ao Entra ID), com roadmap em fases, rollback e acompanhamento de riscos residuais.
 
 ---
