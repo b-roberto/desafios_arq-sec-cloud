@@ -594,6 +594,14 @@ pipeline {
 
 ---
 
-## Reprodutibilidade e Documentação
+### Critérios mínimos de reprodutibilidade
+Qualquer pessoa com conhecimento básico em AWS deve conseguir, com este repositório e este README:
 
-Espera-se que o código entregue seja reprodutível por qualquer pessoa com conhecimento básico em AWS, sem depender de informações implícitas ou ajustes manuais não documentados.
+1. Executar `terraform init` e `terraform apply`;
+2. Identificar os outputs principais (ALB, Bastion, RDS, bucket, secret);
+3. Validar saúde do ALB/Target Group/ASG;
+4. Confirmar que o RDS está privado;
+5. Confirmar controles do bucket (Block Public Access, encryption, HTTPS-only);
+6. Acessar a Web via ALB (e opcionalmente via Bastion/SSM);
+7. Executar/validar o backup demonstrativo;
+8. Executar `terraform destroy` sem depender de ajustes manuais não documentados.
