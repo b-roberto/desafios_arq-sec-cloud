@@ -23,7 +23,7 @@ Utilize como base o diagrama a seguir (formato draw.io):
 - Abrir em: https://app.diagrams.net
 
 ## Arquitetura Proposta (To‑Be)
-- `docs/imagens/to-be.drawio` (arquitetura proposta)
+- `docs/imagens/aws_diagrama_to_be.drawio` (arquitetura proposta)
 - Abrir em: https://app.diagrams.net
 
 > **Nota:** o To‑Be foi desenhado mantendo o mesmo padrão visual do As‑Is e aplicando as correções solicitadas (subnets separadas App/DB, ALB interno, WAF, CloudTrail/CloudWatch/Alarms, Secrets Manager, TLS).
