@@ -23,6 +23,7 @@ Utilize como base o diagrama a seguir (formato draw.io):
 - Abrir em: https://app.diagrams.net
 
 ## Arquitetura Proposta (To‑Be)
+https://github.com/b-roberto/desafios_arq-sec-cloud/blob/main/docs/imagens/aws_diagrama_to_be.png
 - `docs/imagens/aws_diagrama_to_be.drawio` (arquitetura proposta)
 - Abrir em: https://app.diagrams.net
 
