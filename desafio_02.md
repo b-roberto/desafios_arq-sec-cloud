@@ -133,9 +133,15 @@ aws ec2 describe-instances \
   --output text
 ```
 
-### 2) SSH no Bastion
+### 2) Gerar a chave .pem e SSH no Bastion
 ```bash
-ssh -i ./key.pem ubuntu@<BASTION_PUBLIC_IP>
+terraform output -raw ssh_private_key_pem_bastion > bastion.pem
+# se vier com "\n" literal, faz:
+sed -i.bak 's/\\n/\n/g' bastion.pem 2>/dev/null || sed 's/\\n/\n/g' bastion.pem > bastion.pem.tmp && mv bastion.pem.tmp bastion.pem
+
+chmod 600 bastion.pem
+ssh-keygen -yf bastion.pem | head -n 1
+ssh -i bastion.pem ubuntu@<IP-DO-BASTION> -vv
 ```
 
 ### 3) Descobrir IP privado da Web (ASG)
